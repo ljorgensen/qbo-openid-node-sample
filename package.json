@@ -1,0 +1,15 @@
+{
+  "name": "qbo-openid-node-sample",
+  "version": "0.0.0",
+  "description": "small sample to demonstrate how to use 'OpenID for node.js' to sign in with Intuit",
+  "main": "app.js",
+  "repository": "",
+  "author": "Lisa Jorgensen",
+  "dependencies": {
+    "async": "~0.2.8",
+    "ejs": "~2.3.3",
+    "express": "~3.2.4",
+    "morgan": "~1.6.1",
+    "openid": "^2.0.0"
+  }
+}
