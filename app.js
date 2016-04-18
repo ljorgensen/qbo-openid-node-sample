@@ -15,14 +15,12 @@ var openIdDiscovery = 'https://openid.intuit.com/openid/xrds';
 // openid extensions -- update as needed for your application
 var extensions = [
     new oid.SimpleRegistration({
-        "realmId" : true, 
         "email" : true, 
         "fullname" : true
     }),
     new oid.AttributeExchange({
         "http://axschema.org/contact/email": "required",
-        "http://axschema.org/namePerson": "required",
-        "http://axschema.org/intuit/realmId": "required"
+        "http://axschema.org/namePerson": "required"
     }),
     new oid.PAPE({
         "max_auth_age": 24 * 60 * 60, // one day
