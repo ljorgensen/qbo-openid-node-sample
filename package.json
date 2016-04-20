@@ -5,6 +5,9 @@
   "main": "app.js",
   "repository": "",
   "author": "Lisa Jorgensen",
+  "scripts": {
+    "start": "node app.js"
+  },
   "dependencies": {
     "async": "~0.2.8",
     "ejs": "~2.3.3",

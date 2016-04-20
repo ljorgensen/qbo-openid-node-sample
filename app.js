@@ -4,13 +4,24 @@ var oid = require('openid'),
     app = express();
 
 // substitute your port
-var port = normalizePort(process.env.PORT || '8080');
+var port = normalizePort(process.env.PORT || '3000');
 
-// substitute your open id callback url
-var verifyUrl = 'https://qbo-openid-node-sample-stormgrrl.c9users.io:' + port +'/verify/';
+// set up routing/middleware as needed
+app.set('port', port);
+app.set('views', 'views');
+app.set('view engine', 'ejs');
+app.listen(app.get('port'), function() {
+    console.log('Express server listening on port ' + app.get('port'));
+});
+app.get('/', function(req, res) {
+    res.render('index.ejs');
+});
 
-// use Intuit's discovery url instead of provider, because OpenID for node.js uses discovery
-var openIdDiscovery = 'https://openid.intuit.com/openid/xrds';
+// substitute your open id verification url
+var verifyUrl = 'https://qbo-openid-node-sample.io:' + port +'/verify/';
+
+// use Intuit's discovery url instead of provider url, because OpenID for node.js uses discovery
+var openIdXrds = 'https://openid.intuit.com/openid/xrds';
 
 // openid extensions -- update as needed for your application
 var extensions = [
@@ -28,31 +39,24 @@ var extensions = [
     })
 ];
 
-app.set('port', port);
-app.set('views', 'views');
-app.set('view engine', 'ejs');
-app.listen(app.get('port'), function() {
-    console.log('Express server listening on port ' + app.get('port'));
-});
-
-app.get('/', function(req, res) {
-    res.render('index.ejs');
-});
-
-// create relying party
+// initialize openId relying party, using your own choices for (returnUrl, realm, stateless, strict, extensions)
 var relyingParty = new oid.RelyingParty(verifyUrl, null, false, false, extensions);
+// a user object for the sake of this example
 var user = {};
 
 // call openid's RelyingParty to authenticate
 app.get('/authenticate', function(req, res) {
-    relyingParty.authenticate(openIdDiscovery, false, function(error, authUrl) {
+    relyingParty.authenticate(openIdXrds, false, function(error, authUrl) {
         if (error) {
+            // handle error, e.g.:
             res.writeHead(200, { 'Content-Type' : 'text/plain; charset=utf-8' });
             res.end('Authentication failed: ' + error.message);
         } else if (!authUrl) {
+            // handle missing auth url, e.g.:
             res.writeHead(200, { 'Content-Type' : 'text/plain; charset=utf-8' });
             res.end('Authentication failed');
         } else {
+            // handle success, e.g.:
             res.writeHead(302, { Location: authUrl });
             res.end();
         }
@@ -67,21 +71,17 @@ app.get('/verify', function(req, res) {
             res.writeHead(200, { 'Content-Type' : 'text/plain; charset=utf-8' });
             res.end('Error occurred during authentication: ' + error.message);
         } else {
-            // Result contains:
-            // - authenticated (true/false)
-            // - answers from any extensions
+            // Result contains the answers from the specified extensions
             if (result.authenticated) {
-                // handle successful authentication, e.g.:
+                // handle successful authentication, e.g. provision your user object:
                 user.id = result.claimedIdentifier;
                 user.email = result.email;
                 user.fullname = result.fullname;
-                // realmId won't be returned for this example because the user isn't launching it from Apps.com
-                user.realmId = result.realmId;
-                // substitute appropriate behavior (e.g. redirect)
+                // update with desired behavior (e.g. redirect to post-login url)
                 res.writeHead(200, { 'Content-Type' : 'text/plain; charset=utf-8' });
                 res.end('Authentication succeeded: ' + '\n\n' + JSON.stringify(user));
             } else {
-                // handle failure to authenticate (do something better than this)
+                // update desired behavior (e.g. redirect to login retry url)
                 res.writeHead(200, { 'Content-Type' : 'text/plain; charset=utf-8' });
                 res.end('Authentication failed: ' + '\n\n' + JSON.stringify(result));
             }
