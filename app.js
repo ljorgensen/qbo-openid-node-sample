@@ -18,7 +18,7 @@ app.get('/', function(req, res) {
 });
 
 // substitute your open id verification url
-var verifyUrl = 'https://qbo-openid-node-sample.io:' + port +'/verify/';
+var verifyUrl = 'https://qbo-openid-node-sample:' + port +'/verify/';
 
 // use Intuit's discovery url instead of provider url, because OpenID for node.js uses discovery
 var openIdXrds = 'https://openid.intuit.com/openid/xrds';
