@@ -1,5 +1,9 @@
 A simple example that uses 'OpenID for node.js' to sign in with Intuit.
 
+Download the zip, or clone the repo, or run:
+
+    bower install qbo-openid-node-sample
+
 To run the example:
 
     Substitute your port and verification url for the placeholder values in app.js
