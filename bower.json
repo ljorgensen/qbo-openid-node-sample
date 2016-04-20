@@ -1,0 +1,23 @@
+{
+  "name": "qbo-openid-node-sample",
+  "description": "small sample to demonstrate how to use 'OpenID for node.js' to sign in with Intuit",
+  "main": "app.js",
+  "authors": [
+    "Lisa Jorgensen"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "intuit",
+    "openid",
+    "node.js",
+    "express"
+  ],
+  "homepage": "https://github.com/ljorgensen/qbo-openid-node-sample#readme",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

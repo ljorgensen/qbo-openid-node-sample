@@ -1,10 +1,13 @@
 {
   "name": "qbo-openid-node-sample",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "small sample to demonstrate how to use 'OpenID for node.js' to sign in with Intuit",
   "main": "app.js",
-  "repository": "",
   "author": "Lisa Jorgensen",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ljorgensen/qbo-openid-node-sample"
+  },
   "scripts": {
     "start": "node app.js"
   },
@@ -14,5 +17,17 @@
     "express": "~3.2.4",
     "morgan": "~1.6.1",
     "openid": "^2.0.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/ljorgensen/qbo-openid-node-sample/issues"
+  },
+  "homepage": "https://github.com/ljorgensen/qbo-openid-node-sample#readme",
+  "devDependencies": {},
+  "keywords": [
+    "intuit",
+    "openid",
+    "node.js",
+    "express"
+  ],
+  "license": "MIT"
 }
